@@ -29,10 +29,20 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   
   1. What is the difference between counter1 and counter2?
   
+  counter1 returns a function that increments the variable inside the 'counterMaker' function when called,
+  and counter2 simply increments the global variable 'count' whenever it's called
+
   2. Which of the two uses a closure? How can you tell?
+
+  counter1 uses a closure because the varaible 'count' within the counterMaker function is not accessbile outside
+  of the function itself
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+
+  counter1 might be preferable if there's a couple of 'count' variables you're keeping track of and need to increment each
+  one separately, whereas counter2 might work better if you only need and use a single 'count' variable that a lot of other
+  things are dependent on
 */
 
 // counter1 code
@@ -62,8 +72,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    return Math.floor(Math.random() * 3);
 }
 
 
@@ -81,8 +91,19 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(callback, numInnings){
+  let homeScore = 0;
+  let awayScore = 0;
+  
+  for (let i = 0; i < numInnings; i++) {
+    homeScore += callback();
+    awayScore += callback();
+  }
+
+  return {
+    "Home": homeScore,
+    "Away": awayScore
+  }
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
